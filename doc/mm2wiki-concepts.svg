@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="800"
+   height="400"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.1 r9760"
+   sodipodi:docname="mm2wiki-concepts.svg">
+  <defs
+     id="defs4">
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mend"
+       style="overflow:visible">
+      <path
+         id="path3865"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mstart"
+       style="overflow:visible">
+      <path
+         id="path3862"
+         d="M 0,0 5,-5 -12.5,0 5,5 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(0.4,0,0,0.4,4,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4"
+     inkscape:cx="346.31141"
+     inkscape:cy="157.18878"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1030"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="1"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-26.506697,-221.89786)">
+    <rect
+       style="color:#000000;fill:none;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect3815"
+       width="357.14285"
+       height="364.99997"
+       x="123.57143"
+       y="236.64789" />
+    <rect
+       y="291.36218"
+       x="148.57143"
+       height="144.28571"
+       width="200.71428"
+       id="rect4647"
+       style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+    <text
+       xml:space="preserve"
+       style="font-size:10px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="157.85713"
+       y="304.50504"
+       id="text2985"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan2987"
+         x="157.85713"
+         y="304.50504">==Test==</tspan><tspan
+         sodipodi:role="line"
+         x="157.85713"
+         y="317.00504"
+         id="tspan2989">===level1===</tspan><tspan
+         sodipodi:role="line"
+         x="157.85713"
+         y="329.50504"
+         id="tspan2991">* level2</tspan><tspan
+         sodipodi:role="line"
+         x="157.85713"
+         y="342.00504"
+         id="tspan2993">** level3</tspan><tspan
+         sodipodi:role="line"
+         x="157.85713"
+         y="354.50504"
+         id="tspan2995">** level3 '''bold''' richtext</tspan><tspan
+         sodipodi:role="line"
+         x="157.85713"
+         y="367.00504"
+         id="tspan2997">** level3 ''italic'' text</tspan><tspan
+         sodipodi:role="line"
+         x="157.85713"
+         y="379.50504"
+         id="tspan2999">** level3 link [test.html]</tspan><tspan
+         sodipodi:role="line"
+         x="157.85713"
+         y="392.00504"
+         id="tspan3001">* /'''!'''\ level2 with warning icon</tspan><tspan
+         sodipodi:role="line"
+         x="157.85713"
+         y="404.50504"
+         id="tspan3003">* ('''!?''') level2 '''richtext''' with bulp</tspan><tspan
+         sodipodi:role="line"
+         x="157.85713"
+         y="417.00504"
+         id="tspan3005">===level1 richtext===</tspan><tspan
+         sodipodi:role="line"
+         x="157.85713"
+         y="429.50504"
+         id="tspan3007">===level1 bold===  </tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:10px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="151.42857"
+       y="285.07645"
+       id="text3781"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3783"
+         x="151.42857"
+         y="285.07645"
+         style="font-weight:bold;fill:#fd0000;fill-opacity:1">Media Wiki Editor</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:10px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="137.14285"
+       y="256.64792"
+       id="text3817"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3819"
+         x="137.14285"
+         y="256.64792">Website loaded in browser</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 151.42857,388.79075 -45.71428,24.28571"
+       id="path4487"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-size:10px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="46.428574"
+       y="427.36218"
+       id="text4489"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4491"
+         x="46.428574"
+         y="427.36218">convert icons to</tspan><tspan
+         sodipodi:role="line"
+         x="46.428574"
+         y="439.86218"
+         id="tspan4493">ASCII art like stuff</tspan></text>
+    <rect
+       style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect4495"
+       width="183.57143"
+       height="135.71428"
+       x="148.57143"
+       y="457.36218" />
+    <text
+       xml:space="preserve"
+       style="font-size:10px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="152.85715"
+       y="452.36218"
+       id="text4497"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4499"
+         x="152.85715"
+         y="452.36218">preview</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:10px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="155.16637"
+       y="469.15067"
+       id="text4503"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4505"
+         x="155.16637"
+         y="469.15067"
+         style="font-size:12px;font-weight:bold">Test</tspan><tspan
+         sodipodi:role="line"
+         x="155.16637"
+         y="482.15717"
+         style="font-weight:bold;-inkscape-font-specification:Sans Bold"
+         id="tspan4596">level1</tspan><tspan
+         sodipodi:role="line"
+         x="155.16637"
+         y="493.66043"
+         style="font-size:9px"
+         id="tspan4598"> · level2</tspan><tspan
+         sodipodi:role="line"
+         x="155.16637"
+         y="504.91043"
+         id="tspan4511"
+         style="font-size:9px">   · level3</tspan><tspan
+         sodipodi:role="line"
+         x="155.16637"
+         y="516.1604"
+         id="tspan4513"
+         style="font-size:9px">   · level3 '''bold''' richtext</tspan><tspan
+         sodipodi:role="line"
+         x="155.16637"
+         y="527.4104"
+         id="tspan4515"
+         style="font-size:9px">   · level3 ''italic'' text</tspan><tspan
+         sodipodi:role="line"
+         x="155.16637"
+         y="538.6604"
+         id="tspan4517"
+         style="font-size:9px">   · level3 link <tspan
+   style="fill:#2a1fa4;fill-opacity:1"
+   id="tspan4592">[test.html]</tspan></tspan><tspan
+         sodipodi:role="line"
+         x="155.16637"
+         y="549.9104"
+         id="tspan4519"
+         style="font-size:9px"> · /<tspan
+   style="font-weight:bold"
+   id="tspan4580">!</tspan>\ level2 with warning icon</tspan><tspan
+         sodipodi:role="line"
+         x="155.16637"
+         y="561.1604"
+         id="tspan4521"
+         style="font-size:9px"> · (<tspan
+   style="font-weight:bold"
+   id="tspan4578">!?</tspan>) level2 <tspan
+   style="font-weight:bold"
+   id="tspan4582">richtext</tspan> with bulp</tspan><tspan
+         sodipodi:role="line"
+         x="155.16637"
+         y="573.40717"
+         id="tspan4523"
+         style="font-weight:bold">level1 richtext</tspan><tspan
+         sodipodi:role="line"
+         x="155.16637"
+         y="585.90717"
+         id="tspan4525"
+         style="font-weight:bold">level1 bold</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 152.14287,471.6479 175,0"
+       id="path4606"
+       inkscape:connector-curvature="0" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4608"
+       d="m 152.14287,564.36219 175,0"
+       style="fill:none;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.80000001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 152.14287,576.36219 175,0"
+       id="path4610"
+       inkscape:connector-curvature="0" />
+    <path
+       sodipodi:nodetypes="cc"
+       inkscape:connector-curvature="0"
+       id="path4649"
+       d="M 160,544.21932 105.71429,447.07646"
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    <g
+       id="g5443"
+       transform="translate(19.285714,-12.857143)">
+      <image
+         width="267.20001"
+         height="273.20001"
+         xlink:href="file:///home/juve/dev/mm2wiki/doc/freemind-mindmap-editor.png.png"
+         id="image3812"
+         x="487.82858"
+         y="266.61932" />
+      <text
+         xml:space="preserve"
+         style="font-size:10px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         x="490"
+         y="261.36215"
+         id="text4674"
+         sodipodi:linespacing="125%"><tspan
+           sodipodi:role="line"
+           id="tspan4676"
+           x="490"
+           y="261.36215"
+           style="font-weight:bold;fill:#fd0000;fill-opacity:1">Freemind</tspan></text>
+    </g>
+    <g
+       id="g5448"
+       transform="translate(20,-100)">
+      <rect
+         y="410.93362"
+         x="355"
+         height="137.85715"
+         width="92.857117"
+         id="rect3839"
+         style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3841"
+         y="424.50504"
+         x="361.4285"
+         style="font-size:10px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           y="424.50504"
+           x="361.4285"
+           id="tspan3843"
+           sodipodi:role="line">external editor</tspan><tspan
+           id="tspan3845"
+           y="437.00504"
+           x="361.4285"
+           sodipodi:role="line">plugin using the</tspan><tspan
+           id="tspan3847"
+           y="449.50504"
+           x="361.4285"
+           sodipodi:role="line">mm2wiki</tspan><tspan
+           id="tspan3849"
+           y="462.00504"
+           x="361.4285"
+           sodipodi:role="line">transformator</tspan></text>
+      <path
+         style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:url(#Arrow1Mstart);marker-end:url(#Arrow1Mend)"
+         d="m 452.14286,444.50504 32.85714,0"
+         id="path4483"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cc" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text4678"
+         y="405.07645"
+         x="357.14285"
+         style="font-size:10px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           style="font-weight:bold;fill:#fd0000;fill-opacity:1"
+           y="405.07645"
+           x="357.14285"
+           id="tspan4680"
+           sodipodi:role="line">Browser Plugin</tspan></text>
+      <g
+         transform="translate(-53.790623,61.366767)"
+         id="g5435">
+        <path
+           style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:none;marker-end:none"
+           d="m 383.06148,383.05533 25.55584,0"
+           id="path3851"
+           inkscape:connector-curvature="0"
+           sodipodi:nodetypes="cc" />
+        <g
+           id="g5058"
+           transform="translate(-1.2626907,2.9041886)">
+          <path
+             d="m 404.99999,372.54074 c 0,2.6628 -2.15863,4.82143 -4.82143,4.82143 -2.6628,0 -4.82143,-2.15863 -4.82143,-4.82143 0,-2.6628 2.15863,-4.82143 4.82143,-4.82143 2.6628,0 4.82143,2.15863 4.82143,4.82143 z"
+             sodipodi:ry="4.8214288"
+             sodipodi:rx="4.8214288"
+             sodipodi:cy="372.54074"
+             sodipodi:cx="400.17856"
+             id="path4682"
+             style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+             sodipodi:type="arc" />
+          <path
+             inkscape:connector-curvature="0"
+             id="path4684"
+             d="m 391.78571,372.36218 -4.28571,0"
+             style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-start:none;marker-end:url(#Arrow1Mend)" />
+          <g
+             style="font-size:9px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+             id="text5054">
+            <path
+               d="m 401.11206,372.54996 c 0.16927,0.0573 0.33333,0.17969 0.49219,0.36718 0.16145,0.18751 0.32291,0.44532 0.48437,0.77344 l 0.80078,1.59375 -0.84765,0 -0.7461,-1.49609 c -0.19271,-0.39062 -0.38021,-0.64974 -0.5625,-0.77735 -0.17969,-0.1276 -0.42578,-0.1914 -0.73828,-0.1914 l -0.85937,0 0,2.46484 -0.78906,0 0,-5.83203 1.78125,0 c 0.66666,1e-5 1.16405,0.13933 1.49218,0.41797 0.32812,0.27865 0.49219,0.69922 0.49219,1.26172 0,0.36719 -0.0859,0.67188 -0.25781,0.91406 -0.16928,0.24219 -0.41667,0.41016 -0.74219,0.50391 m -1.97656,-2.44922 0,2.07031 0.99219,0 c 0.3802,0 0.66666,-0.0872 0.85937,-0.26172 0.19531,-0.17708 0.29297,-0.43619 0.29297,-0.77734 0,-0.34114 -0.0977,-0.59765 -0.29297,-0.76953 -0.19271,-0.17448 -0.47917,-0.26172 -0.85937,-0.26172 l -0.99219,0"
+               style="font-size:8px"
+               id="path5065"
+               inkscape:connector-curvature="0" />
+          </g>
+        </g>
+      </g>
+    </g>
+    <g
+       id="g4665"
+       transform="translate(-51.428572,-100)">
+      <rect
+         y="570.2193"
+         x="405"
+         height="121.42857"
+         width="185.71429"
+         id="rect4651"
+         style="color:#000000;fill:#eee1a8;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.80000001;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text4653"
+         y="586.64789"
+         x="412.14285"
+         style="font-size:10px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+         xml:space="preserve"><tspan
+           y="586.64789"
+           x="412.14285"
+           id="tspan4655"
+           sodipodi:role="line">Features:</tspan><tspan
+           id="tspan4657"
+           y="599.14789"
+           x="412.14285"
+           sodipodi:role="line">- ASCII art icons</tspan><tspan
+           id="tspan4663"
+           y="611.64789"
+           x="412.14285"
+           sodipodi:role="line">- bold, italic, links, richtext</tspan><tspan
+           id="tspan4659"
+           y="624.14789"
+           x="412.14285"
+           sodipodi:role="line">- import/export from mm to wiki</tspan><tspan
+           id="tspan4661"
+           y="636.64789"
+           x="412.14285"
+           sodipodi:role="line" /></text>
+    </g>
+    <rect
+       style="color:#000000;fill:none;stroke:#000000;stroke-width:0.80000001;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       id="rect5466"
+       width="74.285713"
+       height="22.142857"
+       x="385.71429"
+       y="385.93362" />
+  </g>
+</svg>

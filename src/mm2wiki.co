@@ -1,0 +1,142 @@
+xml2js = require "./xml2js"
+
+convert = (wikifile, cb) ->
+	parser = new xml2js.Parser()
+	parser.parseString wikifile, (err, result) ->
+		cb err, js2wiki(result)
+
+js2wiki = (node, depth=0) ->
+	result = ""
+	link   = ""
+	nodes  = []
+	start  = ""
+	end    = "\n"
+
+	switch depth
+		when 1 then start = "==";  end = "==\n"
+		when 2 then start = "===";   end = "===\n"
+		when 3 then start = "* "
+		when 4 then start = "** "
+		when 5 then start = "*** "
+		when 6 then start = "**** "
+
+	result = start unless node["@"]?["version"]
+
+	result += icon2wiki(node["icon"]) + " "   if node["icon"]?
+	link   = " [#{ node["@"]?["LINK"] }]"     if node["@"]?["LINK"]
+	result += node["@"]["TEXT"] + link + end  if node["@"]?["TEXT"]
+
+	nodes = if node["node"]?
+		if node["node"].length > 1 then node["node"]
+		else [ node["node"] ]
+	else []
+
+	console.log "node:", node["@"]["TEXT"]
+
+	result += rich2wiki(node["richcontent"], depth > 2).trim() + end if node["richcontent"]?
+
+	result += js2wiki n, depth+1 for n in nodes
+
+	result
+
+rich2wiki = (node, linebreak=false) ->
+	result = ""
+	splitter = " "
+	splitter = " <br>" if linebreak
+
+	o = (testObj, start, func, end="") ->
+		if testObj? and func?
+			result += start + func(testObj) + end
+		if typeof testObj is 'string' and not func?
+			result += testObj
+			result += start ? ""
+			result += end
+
+	if typeof node is 'string'
+		result = node
+	else if typeof node is 'object' and not node.length?
+		# check for properties and parse them
+		console.log "found: object"
+
+		# special case html,p: linebreak must be passed for "<br>" insertion
+		# WARN: <p> may not break in other tags than <p> and <body>!
+		#       the first set of <p> in the <body> will break
+		#       <p> in those body-<p> will also break
+		result += rich2wiki node.html.body, linebreak if node.html?
+		result += rich2wiki node.p, linebreak if node.p?
+
+		# special case links: ["#"] text must be wrapped with link syntax
+		if node["@"]?["href"]?
+			result += "[#{node["@"]["href"]} #{node["#"]}]"
+		else
+			o node["#"], " "
+
+		# other cases: call rich2wiki on subnode
+		# and handle node specifics (boldness, etc.)
+		o node.a,       "",    rich2wiki
+		o node.small,   "",    rich2wiki
+		o node.span,    "",    rich2wiki
+		o node.strong,  "",    rich2wiki
+		o node.b,       "'''", rich2wiki, "'''"
+		o node.i,       "''",  rich2wiki, "''"
+		o node.br,      " <br>"
+
+	else if node.length > 0
+		console.log "found: array(#{node.length}), linebreak=#{linebreak}"
+		result += (rich2wiki e for e in node).join splitter
+
+	else console.log "found nothing!"
+
+	console.log node
+	return result
+
+icon2wiki = (icon) ->
+	# handle internal icons or return empty string
+	"" unless icon["@"]["BUILTIN"]?
+	name = icon["@"]["BUILTIN"]
+	result = ""
+
+	# helper func to make the mapping code look nice
+	o = (ascii, regex) -> result = ascii if name.match regex
+
+	# icon name to ASCII mappings
+	o "/'''!'''\\", /warning/
+	o "('''!?''')", /idea/
+	result
+
+module.exports.convert = convert
+
+###
+# LIST OF FREEMIND BUILTIN ICONS:
+# -------------------------------
+# attach
+# back
+# bell
+# bookmark
+# clanbomber
+# desktopnew
+# flag
+# forward
+# gohome
+# help
+# idea
+# kaddressbook
+# knotify
+# korn
+# licq
+# mail
+# password
+# pencil
+# penguin
+# priority-1
+# priority-2
+# priority-3
+# priority-4
+# priority-5
+# priority-6
+# priority-7
+# stop
+# warning
+# wizard
+# xmag
+###

@@ -1,0 +1,42 @@
+# Copyright (c) 2011 Uwe Jugel
+
+say = (args...)-> console.log.apply console, args
+
+wikifile = ""
+xmlfile = ""
+
+assert = (expression, name, text) ->
+	console.error text unless expression
+	console.log "Test passed: #{name}"
+	return
+
+test1 = ->
+	say '''
+	---------------------------------------------------
+	test.co: "Add your tests to src/test.co!"
+	---------------------------------------------------
+	'''
+	say "Starting tests...\n"
+
+	convert = require("./mm2wiki").convert
+
+	fs = require "fs"
+	xmlfile = fs.readFileSync "./test.mm", "UTF-8"
+	wikifile = fs.readFileSync "./test.wiki", "UTF-8"
+
+	convert xmlfile, test2
+
+test2 = (err, result) ->
+
+	assert result.length > 0 and wikifile.length > 0, "file test", "FileError: file has zero length"
+
+	assert result == wikifile, "simple conversion", "ConverterError: unsupported input: #{result}"
+
+	console.error result
+	console.error wikifile
+
+	return
+
+test1()
+
+
