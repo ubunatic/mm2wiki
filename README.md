@@ -6,9 +6,10 @@ Licensed under the MIT license (see LICENSE file)
 mm2wiki Converter - Convert Freemind Mindmaps to Mediawiki Syntax
 =================================================================
 
-mm2wiki can convert freemind mindmaps to mediawiki syntax. It is completely written in CoffeeScript and can be built on Linux AND Windows using the my Hot Coffee Brewer https://github.com/ubunatic/Hot-Coffee-Brewer.
+mm2wiki can convert freemind mindmaps to mediawiki syntax. It is completely written in CoffeeScript http://jashkenas.github.com/coffee-script/ and can be built on Linux AND Windows using my Hot Coffee Brewer https://github.com/ubunatic/Hot-Coffee-Brewer without the coffee command line tool.
 
-mm2wiki requires node-xml2js https://github.com/Leonidas-from-XIV/node-xml2js, which requires sax-js https://github.com/isaacs/sax-js
+mm2wiki requires node-xml2js https://github.com/Leonidas-from-XIV/node-xml2js
+node-xml2js requires sax-js https://github.com/isaacs/sax-js
 
 Project Contents
 ----------------
@@ -36,7 +37,7 @@ mm2wiki Usage
 
 		node build.js
 
-2.  TODO: add usage section when command line tool version is ready. Currently only the test case is supported
+2.  TODO: add usage section when command line tool version is ready. Currently only the test case is supported.
 
 mm2wiki Installation
 -----------------------
@@ -45,7 +46,7 @@ mm2wiki Installation
     cd mm2wiki
     node build.js
 
-If everythings runs fine, you can remove the files from `./src` and start using
+If everythings runs fine, you can remove the files from `./src` and start to use `mm2wiki.js` directly.
 
 *Windows*: Make sure to add the `node.exe` to your system `PATH`.
 
