@@ -7,7 +7,6 @@ convert = (wikifile, cb) ->
 
 js2wiki = (node, depth=0) ->
 	result = ""
-	link   = ""
 	nodes  = []
 	start  = ""
 	end    = "\n"
@@ -22,16 +21,22 @@ js2wiki = (node, depth=0) ->
 
 	result = start unless node["@"]?["version"]
 
-	result += icon2wiki(node["icon"]) + " "   if node["icon"]?
-	link   = " [#{ node["@"]?["LINK"] }]"     if node["@"]?["LINK"]
-	result += node["@"]["TEXT"] + link + end  if node["@"]?["TEXT"]
+	if node["icon"]
+		if node["icon"].length? then result += "#{icon2wiki icon} " for icon in node["icon"]
+		else result += "#{icon2wiki node["icon"]} "
+	
+	if attr = node["@"]
+		result += link2wiki(attr.LINK, attr.TEXT) + end if attr.LINK
+		result += attr.TEXT + end                            if attr.TEXT and not attr.LINK
+	else
+		attr = {}
 
 	nodes = if node["node"]?
 		if node["node"].length > 1 then node["node"]
 		else [ node["node"] ]
 	else []
 
-	console.log "node:", node["@"]["TEXT"]
+	console.log "node:", attr.TEXT
 
 	result += rich2wiki(node["richcontent"], depth > 2).trim() + end if node["richcontent"]?
 
@@ -41,17 +46,14 @@ js2wiki = (node, depth=0) ->
 
 rich2wiki = (node, linebreak=false) ->
 	result = ""
-	splitter = " "
-	splitter = " <br>" if linebreak
+	splitter = if linebreak then " <br>" else " "
 
 	o = (testObj, start, func, end="") ->
-		if testObj? and func?
-			result += start + func(testObj) + end
-		if typeof testObj is 'string' and not func?
-			result += testObj
-			result += start ? ""
-			result += end
+		result += start + func(testObj) + end   if testObj? and func?
+		result += testObj + (start ? "") + end  if typeof testObj is 'string' and not func?
 
+    # <-- leading whitespace test
+	# traling whitespace test -->	
 	if typeof node is 'string'
 		result = node
 	else if typeof node is 'object' and not node.length?
@@ -67,18 +69,23 @@ rich2wiki = (node, linebreak=false) ->
 
 		# special case links: ["#"] text must be wrapped with link syntax
 		if node["@"]?["href"]?
-			result += "[#{node["@"]["href"]} #{node["#"]}]"
+			result += link2wiki node["@"]["href"], node["#"]
 		else
 			o node["#"], " "
 
+		if node["@"]?["src"]?
+			result += "see image #{ node["@"]["src"] } "
+			result += "[[File:#{ node["@"]["src"] }|thumb]]"
+
 		# other cases: call rich2wiki on subnode
 		# and handle node specifics (boldness, etc.)
-		o node.a,       "",    rich2wiki
-		o node.small,   "",    rich2wiki
-		o node.span,    "",    rich2wiki
-		o node.strong,  "",    rich2wiki
-		o node.b,       "'''", rich2wiki, "'''"
-		o node.i,       "''",  rich2wiki, "''"
+		o node.a,       "",	       rich2wiki
+		o node.img,     "",	       rich2wiki
+		o node.small,   "",        rich2wiki
+		o node.span,    "",        rich2wiki
+		o node.strong,  "",        rich2wiki
+		o node.b,       "'''",     rich2wiki, "'''"
+		o node.i,       "''",      rich2wiki, "''"
 		o node.br,      " <br>"
 
 	else if node.length > 0
@@ -90,22 +97,63 @@ rich2wiki = (node, linebreak=false) ->
 	console.log node
 	return result
 
+# matches for local/file/freemind/utl link detection
+match_http = /^\s*[hf][t]?tp[s]?/
+match_localfile = /^\s*\.\/|^\s*\.\\|^\s*[\\\/\s\w-_0-9]*\.[\.\s\w-_0-9]*/ #may start with ./ or .\, may end with .* or .*.* etc.
+match_wikititle = /^\s*[\\\/\s\w-_0-9]*[\s\w-_0-9]*/ #no dots
+match_mmext = /\.mm\s*$/
+
+link2wiki = (link, text) ->
+	if link.match match_http
+		"[#{link} #{text}]"
+	else if link.match match_localfile
+		result = "#{text} [[File:#{link}]]"
+		result = "mindmap: #{result} (related wiki site: [[#{link}]])" if link.match match_mmext
+		return result
+	else if link.match match_wikititle
+		"#{text} [#{link}]"
+	else
+		"#{text}: #{link}"
+
 icon2wiki = (icon) ->
 	# handle internal icons or return empty string
-	"" unless icon["@"]["BUILTIN"]?
+	"" unless icon["@"]?["BUILTIN"]?
 	name = icon["@"]["BUILTIN"]
 	result = ""
 
 	# helper func to make the mapping code look nice
-	o = (ascii, regex) -> result = ascii if name.match regex
+	o = (utftext, regex) -> result = utftext if name.match regex
 
-	# icon name to ASCII mappings
-	o "/'''!'''\\", /warning/
-	o "('''!?''')", /idea/
+	# icon name to ASCII, UNICODE mappings, make sure to use
+	# the output as UNICODE and that your wiki supports it.
+	# TODO: implement a non-unicode version
+	o "<big><big>⚠</big></big>",  /warning/
+	o "εїз",                      /freemind/
+	o "<big>ⓘ</big>",             /idea/
+	o "[<u>…</u>]",               /folder/
+	o "<big>⁝</big>☰",            /list/
+	o "|<big>✎</big>|",           /edit/
+	o "<big><big>☆</big></big>",  /bookmark/
+	o "[<small>linux</small>]",   /penguin/
+	o "<big><big>⌚</big></big>",  /clock/
 	result
 
 module.exports.convert = convert
 
+### ASCII art
+# http://utf8-characters.com/geometric-shapes/
+# idea: [<u>Ω</u>]
+# table: 𝄜
+# warn: ⚠
+# musical: 𝄚
+# trigram: ☰𝄚
+# tetragrams: 𝍔
+# digrams: 𝌅
+# █▬█ █ ▀█▀
+# █!█
+# <!>
+# <mm>
+# &lt;&#F723&gt;
 ###
 # LIST OF FREEMIND BUILTIN ICONS:
 # -------------------------------

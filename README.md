@@ -3,70 +3,54 @@ Copyright (c) 2011 Uwe Jugel
 Licensed under the MIT license (see LICENSE file)
 
 
-Hot Coffee Brewer
-=================
+mm2wiki Converter - Convert Freemind Mindmaps to Mediawiki Syntax
+=================================================================
 
-Hot Coffee Brewer can compile your CoffeeScript files using node.js. It uses only
-node.js and coffee.js has no other dependencies. This is achieved by doing all
-compiling with CoffeeScript.compile provided by coffee.js
-
-Hot Coffee Brewer runs on Linux AND Windows!
-Fork me on GitHub: https://github.com/ubunatic/Hot-Coffee-Brewer
-
+mm2wiki can convert freemind mindmaps to mediawiki syntax. It is completely written in CoffeeScript and can be built on Linux AND Windows using the my Hot Coffee Brewer https://github.com/ubunatic/Hot-Coffee-Brewer
 
 Project Contents
 ----------------
 
-Hot Coffee Brewer comprises the following parts:
-
-		.hotcoffee/hcb.js:                # compiles 'hotcoffee.co'
-		.hotcoffee/src/hotcoffee.co       # compiles all build scripts
-		.hotcoffee/src/tastecoffe.co:     # runs self tests
-		.hotcoffee/src/**                 # more hcb component files
+		.hotcoffee/hcb.js:                # my personal coffee to js builder
 		.hotcoffee/lib/coffee.js          # a copy of the full coffee-script module
+		build.js:                         # buildfile that starts the builder
 
-		build.js:                         # sample buildfile calls hotcoffee.js
-		src/world.co                      # sample CoffeeScript class 'World'
-		src/test.co                       # sample CoffeeScript file to test 'World'
+		src/mm2wiki.co                    # mm2wiki source
+		src/test.co                       # a short test case
 
+		lib/*.js                          # compiled js + dependencies
+		lib/xml2js.js                     # dep: creates nice js objs from xml
+		lib/sax.js                        # dep: xml parser
 
-Hot Coffee Usage
-----------------
+		test.mm                           # freemind mindmap using many features
+		test.wiki                         # expected converter output
+
+		res/mindmap-testthumb.png         # image linked from the mindmap
+
+mm2wiki Usage
+-------------
 
 1.	Test if the sample files compile and the test runs through:
 
 		node build.js
 
-2.	Create your own build.js, create ./src and ./lib, copy hotcoffee, and run:
+2.  TODO: add usage section when command line tool version is ready. Currently only the test case is supported
 
-		mkdir ~/yourproject/src
-		mkdir ~/yourproject/lib
-		cp .hotcoffee ~/yourproject
-		cd ~/yourproject
-		node build.js
-
-This will compile all .co files in your ./src dir to .js files in ./lib
-and run all test files as specified in your build.js.
-
-Hot Coffee Installation
+mm2wiki Installation
 -----------------------
 
-    git clone https://github.com/ubunatic/Hot-Coffee-Brewer.git new-project
-    cd new-project
+    git clone https://github.com/ubunatic/mm2wiki.git mm2wiki
+    cd mm2wiki
     node build.js
-    
-If everythings runs fine, you can remove the files from `./src` and create your own `*.co` files.
-You might also want to remove the `./.git` dir to allow your own git versioning (If I have time, I will make the `./.hotcoffee` a submodule rather than a template project).
+
+If everythings runs fine, you can remove the files from `./src` and start using
 
 *Windows*: Make sure to add the `node.exe` to your system `PATH`.
 
-Hot Coffee Issues
+mm2wiki Issues
 -----------------
-Many things are hard coded. You may want to change some of the files.
-
-* Issue 1: compiles only .co files (no .coffee files yet)
-* Issue 2: filters error output and reformats is to better serve Gedit (Linux)
-* Issue 3: no error grepping for other editors/IDEs
+* Issue 1: There are too many linebreaks generated from richcontent nodes
+* Issue 2: Some Unicode icons are not visible on some wikis/systems/fonts
 
 
 

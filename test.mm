@@ -1,8 +1,22 @@
 <map version="0.9.0">
 <!-- To view this file, download free mind mapping software FreeMind from http://freemind.sourceforge.net -->
-<node CREATED="1318607366620" ID="ID_630891338" MODIFIED="1318612941284" TEXT="Test">
+<node CREATED="1318607366620" ID="ID_630891338" MODIFIED="1318892545863">
+<richcontent TYPE="NODE"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Mediawiki
+    </p>
+    <p>
+      Markup Test
+    </p>
+  </body>
+</html>
+</richcontent>
 <node CREATED="1318607374483" ID="ID_1672355761" MODIFIED="1318612944146" POSITION="right" TEXT="level1">
-<node CREATED="1318607378765" ID="ID_1770952681" MODIFIED="1318607399546" TEXT="level2">
+<node CREATED="1318607378765" FOLDED="true" ID="ID_1770952681" MODIFIED="1318892621846" TEXT="level2">
 <node CREATED="1318608388962" ID="ID_1871103889" MODIFIED="1318612946113" TEXT="level3"/>
 <node CREATED="1318612957330" ID="ID_96419371" MODIFIED="1318615148332">
 <richcontent TYPE="NODE"><html>
@@ -74,11 +88,10 @@
       heavyweight Adobe Reader.
     </p>
   </body>
-</html>
-</richcontent>
+</html></richcontent>
 </node>
 </node>
-<node CREATED="1318612948554" ID="ID_1934218583" MODIFIED="1318612955011" POSITION="right">
+<node CREATED="1318612948554" FOLDED="true" ID="ID_1934218583" MODIFIED="1318892618068" POSITION="right">
 <richcontent TYPE="NODE"><html>
   <head>
     
@@ -92,9 +105,46 @@
     </p>
   </body>
 </html></richcontent>
+<node CREATED="1318879434953" ID="ID_1616692095" MODIFIED="1318879455995" TEXT="image of midmap">
+<node CREATED="1318879469090" ID="ID_1402033079" MODIFIED="1318879513051">
+<richcontent TYPE="NODE"><html>
+  <head>
+    
+  </head>
+  <body>
+    <img src="res/mindmap-testthumb.png" />
+  </body>
+</html></richcontent>
+</node>
+</node>
+<node CREATED="1318880764730" ID="ID_1413707584" LINK="test.wiki" MODIFIED="1318887399907" TEXT="attached file">
+<icon BUILTIN="folder"/>
+</node>
+<node CREATED="1318884269307" ID="ID_1487495178" LINK="Related-Map.mm" MODIFIED="1318887229005" TEXT="related map">
+<icon BUILTIN="freemind_butterfly"/>
+</node>
+<node CREATED="1318887419397" ID="ID_379896580" MODIFIED="1318887426144" TEXT="list icon">
+<icon BUILTIN="list"/>
+</node>
+<node CREATED="1318887427604" ID="ID_1859996741" MODIFIED="1318887435287" TEXT="edit icon">
+<icon BUILTIN="edit"/>
+</node>
+<node CREATED="1318887436466" ID="ID_644903638" MODIFIED="1318887448074" TEXT="star icon">
+<icon BUILTIN="bookmark"/>
+</node>
+<node CREATED="1318887449048" ID="ID_1433370482" MODIFIED="1318887455117" TEXT="linux icon">
+<icon BUILTIN="penguin"/>
+</node>
+<node CREATED="1318887459174" ID="ID_273435885" MODIFIED="1318887469136" TEXT="clock icon">
+<icon BUILTIN="clock"/>
+</node>
 </node>
 <node CREATED="1318615047524" ID="ID_503329386" MODIFIED="1318615054619" POSITION="right" TEXT="level1 bold">
 <font BOLD="true" NAME="SansSerif" SIZE="12"/>
+</node>
+<node CREATED="1318892603897" ID="ID_42611839" MODIFIED="1318892713128" POSITION="right" TEXT="level1 icons">
+<icon BUILTIN="bookmark"/>
+<icon BUILTIN="penguin"/>
 </node>
 </node>
 </map>
