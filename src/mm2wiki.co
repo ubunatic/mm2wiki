@@ -1,5 +1,11 @@
 xml2js = require "./xml2js"
 
+DEBUG = false
+
+console =
+	log: (args...) -> global.console.log args... if DEBUG
+	error: (args...) -> global.console.error args... if DEBUG
+
 convert = (wikifile, cb) ->
 	parser = new xml2js.Parser()
 	parser.parseString wikifile, (err, result) ->
@@ -138,7 +144,43 @@ icon2wiki = (icon) ->
 	o "<big><big>⌚</big></big>",  /clock/
 	result
 
+commandline = (filename) ->
+	fs = require "fs"
+	file = fs.readFileSync filename, "UTF-8"
+	convert file, (err, result) ->
+		if err then global.console.error err
+		else global.console.log result
+		return
+	return
+		
+
 module.exports.convert = convert
+module.exports.cli = commandline
+
+# test for command line usage and call commandline with proper arguments
+argv = process.argv
+if argv.length > 2 and argv[2] == "mm2wiki" and argv[3]?
+	commandline argv[3]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### ASCII art
 # http://utf8-characters.com/geometric-shapes/
@@ -154,6 +196,8 @@ module.exports.convert = convert
 # <!>
 # <mm>
 # &lt;&#F723&gt;
+###
+
 ###
 # LIST OF FREEMIND BUILTIN ICONS:
 # -------------------------------

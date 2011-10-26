@@ -1,6 +1,6 @@
 # Copyright (c) 2011 Uwe Jugel
 
-say = (args...)-> console.log.apply console, args
+say = -> console.log arguments...
 
 wikifile = ""
 xmlfile = ""
@@ -10,13 +10,45 @@ assert = (expression, name, text) ->
 	console.log "Test passed: #{name}"
 	return
 
-test1 = ->
+Test = do ->
+	tests = []
+
+	testFn = ( name, fn ) ->
+		if name?
+			if fn?
+				addTest name, fn
+			else
+				runTest getTest name
+		else
+			runAll()
+	
+	addTest = (name, fn) ->
+		tests.push
+			name: name
+			run: -> fn()
+
+	runTest = (test) ->
+		say "starting test '#{test.name}'"
+		test.run()
+
+	getTest = (name) ->
+		say "get"
+		return t for t in tests when t.name is name
+
+	runAll = ->
+		say "all"
+		runTest t for t in tests
+
+	return testFn
+
+
+Test "convert test file", ->
 	say '''
 	---------------------------------------------------
 	test.co: "Add your tests to src/test.co!"
 	---------------------------------------------------
+	Starting test...
 	'''
-	say "Starting tests...\n"
 
 	convert = require("./mm2wiki").convert
 
@@ -24,19 +56,26 @@ test1 = ->
 	xmlfile = fs.readFileSync "./test.mm", "UTF-8"
 	wikifile = fs.readFileSync "./test.wiki", "UTF-8"
 
-	convert xmlfile, test2
+	assert xmlfile.length > 0, "file test", "FileError: xmlfile has zero length"
+	assert wikifile.length > 0, "file test", "FileError: wikifile has zero length"
 
-test2 = (err, result) ->
 
-	assert result.length > 0 and wikifile.length > 0, "file test", "FileError: file has zero length"
+	callback = (err, result) ->
+		assert result == wikifile, "simple conversion", "ConverterError: unsupported input: #{result}"
 
-	assert result == wikifile, "simple conversion", "ConverterError: unsupported input: #{result}"
+		if err then console.error result, "\n!=\n", wikifile
+		else console.log result
+	
+	convert xmlfile, callback
 
-	console.error result
-	console.error wikifile
-
+Test "convert via command line", ->
+	say "starting command line test via mm2wiki.cli"
+	cli = require("./mm2wiki").cli
+	cli "./test.mm", "UTF-8", (err, result) ->
+		if err then console.error err
+		else console.log result
 	return
 
-test1()
+Test()
 
 
