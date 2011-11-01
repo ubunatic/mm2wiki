@@ -13,8 +13,7 @@
       Markup Test
     </p>
   </body>
-</html>
-</richcontent>
+</html></richcontent>
 <node CREATED="1318607374483" ID="ID_1672355761" MODIFIED="1318612944146" POSITION="right" TEXT="level1">
 <node CREATED="1318607378765" FOLDED="true" ID="ID_1770952681" MODIFIED="1318892621846" TEXT="level2">
 <node CREATED="1318608388962" ID="ID_1871103889" MODIFIED="1318612946113" TEXT="level3"/>
@@ -145,6 +144,68 @@
 <node CREATED="1318892603897" ID="ID_42611839" MODIFIED="1318892713128" POSITION="right" TEXT="level1 icons">
 <icon BUILTIN="bookmark"/>
 <icon BUILTIN="penguin"/>
+</node>
+<node CREATED="1320099603092" ID="ID_1579205356" MODIFIED="1320099610805" POSITION="right" TEXT="content node">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+<node CREATED="1320099611515" ID="ID_651698058" MODIFIED="1320099657624">
+<richcontent TYPE="NODE"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      <b>1</b>. test iteration
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node CREATED="1320099611515" ID="ID_468596363" MODIFIED="1320099642001">
+<richcontent TYPE="NODE"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      <b>2</b>. test iteration
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node CREATED="1320099611515" ID="ID_746043159" MODIFIED="1320099636922">
+<richcontent TYPE="NODE"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      <b>3</b>. test iteration
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node CREATED="1320099690710" ID="ID_833146331" MODIFIED="1320099739947" TEXT="funny links">
+<font BOLD="true" NAME="SansSerif" SIZE="12"/>
+<node CREATED="1320099695774" ID="ID_1283812186" LINK="http://google.de" MODIFIED="1320099722882" TEXT="link simple"/>
+<node CREATED="1320099700390" ID="ID_487365157" LINK="file:///home/juve" MODIFIED="1320099735765">
+<richcontent TYPE="NODE"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      link rich
+    </p>
+    <p>
+      <b>yeah!</b>
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
 </node>
 </node>
 </map>

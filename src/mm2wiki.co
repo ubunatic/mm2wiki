@@ -2,6 +2,9 @@ xml2js = require "./xml2js"
 
 DEBUG = false
 
+config =
+	linebreak: false
+
 console =
 	log: (args...) -> global.console.log args... if DEBUG
 	error: (args...) -> global.console.error args... if DEBUG
@@ -11,44 +14,74 @@ convert = (wikifile, cb) ->
 	parser.parseString wikifile, (err, result) ->
 		cb err, js2wiki(result)
 
+toList = (object) ->
+	if object?
+		if object.length > 1 then object
+		else [ object ]
+	else []
+
+
 js2wiki = (node, depth=0) ->
 	result = ""
 	nodes  = []
 	start  = ""
 	end    = "\n"
+	attr   = {}
+	final  = ""
 
+	bold         = false
+	minBoldDepth = 3
+	simpleText   = ""
+
+	minBreakDepth = 3
+
+	# break lines for deep nodes, or override with global linebreak config
+	linebreak = depth >= minBreakDepth && config.linebreak
+
+	# define node type based on node depth
 	switch depth
-		when 1 then start = "==";  end = "==\n"
-		when 2 then start = "===";   end = "===\n"
+		when 1 then start = "=";  end = "=\n"
+		when 2 then start = "==";   end = "==\n"
 		when 3 then start = "* "
 		when 4 then start = "** "
 		when 5 then start = "*** "
 		when 6 then start = "**** "
 
+	# add prefix, ignore root node
 	result = start unless node["@"]?["version"]
 
+	# handle bold nodes
+	if node["font"]?["@"]?["BOLD"] is "true"
+		bold = true
+
+	# add all icons first, before adding any text
 	if node["icon"]
 		if node["icon"].length? then result += "#{icon2wiki icon} " for icon in node["icon"]
 		else result += "#{icon2wiki node["icon"]} "
-	
+
+	# add link attr as wiki link before the text
 	if attr = node["@"]
-		result += link2wiki(attr.LINK, attr.TEXT) + end if attr.LINK
-		result += attr.TEXT + end                            if attr.TEXT and not attr.LINK
-	else
-		attr = {}
+		if attr.TEXT                                           #handle simple texts/links
+			if bold and depth >= minBoldDepth                  #add boldness
+				result += "'''"; end = "'''" + end
 
-	nodes = if node["node"]?
-		if node["node"].length > 1 then node["node"]
-		else [ node["node"] ]
-	else []
+			if attr.LINK                                       #add link with text
+				result += link2wiki(attr.LINK, attr.TEXT) + end
+			else                                               #add simple text without link
+				result += attr.TEXT + end
+		else
+			if attr.LINK                                       #add link before any richtext
+				result += link2wiki( attr.LINK ) + " "
+			final = end                                        #postpone closing text
 
-	console.log "node:", attr.TEXT
 
-	result += rich2wiki(node["richcontent"], depth > 2).trim() + end if node["richcontent"]?
+	# process richcontent nodes and add resulting text
+	result += rich2wiki(node["richcontent"], linebreak).trim() + final if node["richcontent"]?
 
-	result += js2wiki n, depth+1 for n in nodes
+	# process child/"node" nodes
+	result += js2wiki n, depth+1 for n in toList node["node"]
 
-	result
+	return result
 
 rich2wiki = (node, linebreak=false) ->
 	result = ""
@@ -110,20 +143,31 @@ match_wikititle = /^\s*[\\\/\s\w-_0-9]*[\s\w-_0-9]*/ #no dots
 match_mmext = /\.mm\s*$/
 
 link2wiki = (link, text) ->
-	if link.match match_http
-		"[#{link} #{text}]"
-	else if link.match match_localfile
-		result = "#{text} [[File:#{link}]]"
-		result = "mindmap: #{result} (related wiki site: [[#{link}]])" if link.match match_mmext
-		return result
-	else if link.match match_wikititle
-		"#{text} [#{link}]"
-	else
-		"#{text}: #{link}"
+	result = ""
+	if text?
+		if link.match match_http
+			result = "[#{link} #{text}]"
+		else if link.match match_localfile
+			result = "#{text} [[File:#{link}]]"
+			result = "mindmap: #{result}" if link.match match_mmext
+			# (related wiki site: [[#{link}]])"
+		else if link.match match_wikititle
+			result = "#{text} [#{link}]"
+		else
+			result = "#{text}: #{link}"
+	else #no text
+		if link.match match_http
+			result = "[#{link}]"
+		else if link.match match_localfile
+			result = "[[File:#{link}]]"
+		else if link.match match_wikititle
+			result = "[#{link}]"
+		else
+			result = "#{link}"
+	return result
 
 icon2wiki = (icon) ->
-	# handle internal icons or return empty string
-	"" unless icon["@"]?["BUILTIN"]?
+	"" unless icon["@"]?["BUILTIN"]? # handle internal only icons or return empty string
 	name = icon["@"]["BUILTIN"]
 	result = ""
 
@@ -144,6 +188,7 @@ icon2wiki = (icon) ->
 	o "<big><big>⌚</big></big>",  /clock/
 	result
 
+# directly converts a mm file to wiki syntax and puts the result to std out
 commandline = (filename) ->
 	fs = require "fs"
 	file = fs.readFileSync filename, "UTF-8"
