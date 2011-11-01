@@ -37,8 +37,8 @@ Project Contents
 
 		res/mindmap-testthumb.png         # image linked from the mindmap
 
-mm2wiki Usage
--------------
+Usage
+-----
 
 Run mm2wiki.js via node commandline JavaScript execution and copy/paste the result to your Mediawiki
 
@@ -53,8 +53,8 @@ relative to the current working directory.
 	node ./lib/mm2wiki.js mm2wiki test.mm > wikitext.txt
 
 
-mm2wiki Installation
---------------------
+Installation
+------------
 
     git clone https://github.com/ubunatic/mm2wiki.git mm2wiki
     cd mm2wiki
@@ -66,13 +66,13 @@ If everythings runs fine, you can remove the files from `./src` and start to use
 
 *Windows*: Make sure to add the `node.exe` to your system `PATH`.
 
-mm2wiki Issues
---------------
+Issues
+------
 * Issue 1: Some Unicode icons are not visible on some wikis/systems/fonts
 * Issue 2: Commandline tool is still too technical
 
-mm2wiki roadmap
----------------
+Roadmap
+-------
 * Issue 3: xml2js changes order of elements -> needs to be replaced
 * Issue 4: sax.js looks like a heavy dependency -> maybe use own custom Freemind parser (xml is not overly compex)
 * Issue 5: more command line args required for better control of conversion (usage of == vs ** depending on node depth)
