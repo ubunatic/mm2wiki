@@ -8,15 +8,15 @@ mm2wiki Converter - Convert Freemind Mindmaps to Mediawiki Syntax
 
 mm2wiki can convert freemind mindmaps to mediawiki syntax.
 It is completely written in CoffeeScript and can be built on
-Linux AND Windows using my Hot Coffee Brewer without the
+Linux AND Windows using my [Hot Coffee Brewer](https://github.com/ubunatic/Hot-Coffee-Brewer) without the
 coffee command line tool.
 
 - running mm2wiki requires:
-  - node-xml2js https://github.com/Leonidas-from-XIV/node-xml2js
-  - sax-js https://github.com/isaacs/sax-js (requred by node-xml2js)
+  - [node-xml2js](https://github.com/Leonidas-from-XIV/node-xml2js)
+  - [sax-js](https://github.com/isaacs/sax-js) (requred by node-xml2js)
 - building mm2wiki requires:
-  - CoffeeScript http://jashkenas.github.com/coffee-script
-  - Hot Coffee Brewer https://github.com/ubunatic/Hot-Coffee-Brewer
+  - [CoffeeScript](http://jashkenas.github.com/coffee-script)
+  - [Hot Coffee Brewer](https://github.com/ubunatic/Hot-Coffee-Brewer)
 
 Project Contents
 ----------------
@@ -37,30 +37,45 @@ Project Contents
 
 		res/mindmap-testthumb.png         # image linked from the mindmap
 
-mm2wiki Usage
--------------
+Usage
+-----
 
-1.  Test if the sample files compile and the test runs through:
+Run mm2wiki.js via node commandline JavaScript execution and copy/paste the result to your Mediawiki
 
-		node build.js
+	node <MM2WIKI>/lib/mm2wiki.js mm2wiki <FILE>
 
-2.  TODO: add usage section when command line tool version is ready. Currently only the test case is supported.
+The commandline argument `mm2wiki` is required for `mm2wiki.js` to run as commandline tool,
+directly executing the `convert` function on the second argument, which should be a file
+relative to the current working directory.
 
-mm2wiki Installation
------------------------
+*Example Usage*, converting the test.mm mindmap via node and save the result as new file:
+
+	node ./lib/mm2wiki.js mm2wiki test.mm > wikitext.txt
+
+
+Installation
+------------
 
     git clone https://github.com/ubunatic/mm2wiki.git mm2wiki
     cd mm2wiki
+    
+    # Test if sample files compile and test conversions runs through:
     node build.js
 
 If everythings runs fine, you can remove the files from `./src` and start to use `mm2wiki.js` directly.
 
 *Windows*: Make sure to add the `node.exe` to your system `PATH`.
 
-mm2wiki Issues
------------------
-* Issue 1: There are too many linebreaks generated from richcontent nodes
-* Issue 2: Some Unicode icons are not visible on some wikis/systems/fonts
+Issues
+------
+* Issue 1: Some Unicode icons are not visible on some wikis/systems/fonts
+* Issue 2: Commandline tool is still too technical
+
+Roadmap
+-------
+* Issue 3: xml2js changes order of elements -> needs to be replaced
+* Issue 4: sax.js looks like a heavy dependency -> maybe use own custom Freemind parser (xml is not overly compex)
+* Issue 5: more command line args required for better control of conversion (usage of == vs ** depending on node depth)
 
 
 
