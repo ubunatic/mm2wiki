@@ -136,7 +136,7 @@ rich2wiki = (node, linebreak=false) ->
 	console.log node
 	return result
 
-# matches for local/file/freemind/utl link detection
+# matches for local/file/freemind/url link detection
 match_http = /^\s*[hf][t]?tp[s]?/
 match_localfile = /^\s*\.\/|^\s*\.\\|^\s*[\\\/\s\w-_0-9]*\.[\.\s\w-_0-9]*/ #may start with ./ or .\, may end with .* or .*.* etc.
 match_wikititle = /^\s*[\\\/\s\w-_0-9]*[\s\w-_0-9]*/ #no dots
