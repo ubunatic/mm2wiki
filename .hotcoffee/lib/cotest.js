@@ -20,7 +20,7 @@
   	https://github.com/ubunatic/Hot-Coffee-Brewer
   
   */
-  var lib2src, test;
+  var extractErrorDetails, lib2src, test;
   lib2src = function(line, js2co) {
     var num, tmpline, tmplineError, tmplineLocation;
     if (js2co == null) {
@@ -44,42 +44,51 @@
       return line;
     }
   };
+  extractErrorDetails = function(error) {
+    var err, errorDetails, errorInfo;
+    errorInfo = error.stack.split("\n");
+    errorInfo = ((function() {
+      var _i, _len, _results;
+      _results = [];
+      for (_i = 0, _len = errorInfo.length; _i < _len; _i++) {
+        err = errorInfo[_i];
+        if (err.trim() !== '' && !err.match(/^node.js:/) && !err.match(/^\s*throw/) && !err.match(/^\s*\^/)) {
+          _results.push(err);
+        }
+      }
+      return _results;
+    })()).slice(0, 4);
+    errorDetails = (function() {
+      var _i, _len, _ref, _results;
+      _ref = errorInfo.slice(1, 4);
+      _results = [];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        err = _ref[_i];
+        _results.push(lib2src(err) + "\n" + lib2src(err, false));
+      }
+      return _results;
+    })();
+    return "\n" + errorInfo[0] + "\n" + errorDetails.join("\n") + "\ntest failed\n";
+  };
   test = function(file) {
-    var err, errorDetails, errorInfo, jsmodule;
+    var jsmodule;
     try {
       return jsmodule = require(file);
     } catch (error) {
-      errorInfo = error.stack.split("\n");
-      errorInfo = ((function() {
-        var _i, _len, _results;
-        _results = [];
-        for (_i = 0, _len = errorInfo.length; _i < _len; _i++) {
-          err = errorInfo[_i];
-          if (err.trim() !== '' && !err.match(/^node.js:/) && !err.match(/^\s*throw/) && !err.match(/^\s*\^/)) {
-            _results.push(err);
-          }
-        }
-        return _results;
-      })()).slice(0, 4);
-      errorDetails = (function() {
-        var _i, _len, _ref, _results;
-        _ref = errorInfo.slice(1, 4);
-        _results = [];
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          err = _ref[_i];
-          _results.push(lib2src(err) + "\n" + lib2src(err, false));
-        }
-        return _results;
-      })();
       if (error) {
-        return process.stdout.write("\n" + errorInfo[0] + "\n" + errorDetails.join("\n") + "\ntest failed\n");
+        return process.stderr.write(error.stack);
       } else {
         return process.stdout.write("test was successful\n");
       }
     }
   };
-  module.exports.test = function(file) {
-    console.log("running " + file);
+  module.exports.test = function(file, log) {
+    if (log == null) {
+      log = true;
+    }
+    if (log) {
+      console.log("running " + file);
+    }
     return test(file);
   };
 }).call(this);

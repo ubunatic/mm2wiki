@@ -21,25 +21,23 @@
   
   */
   var build, buildAll, test;
-  var __indexOf = Array.prototype.indexOf || function(item) {
+  var __slice = Array.prototype.slice, __indexOf = Array.prototype.indexOf || function(item) {
     for (var i = 0, l = this.length; i < l; i++) {
       if (this[i] === item) return i;
     }
     return -1;
   };
-  build = function(task, buildfiles) {
-    var CHK, REX, baditem, coffee, cofiles, compileFile, config, cotest, excludemap, file, filemap, filemap_all, files, findCoffeeFiles, findSrcDir, fs, item, mkdir, padString, path2edit, runTest, setEditor, src2lib, updir_count, _i, _len, _ref, _ref2, _results;
-    if (buildfiles == null) {
-      buildfiles = [];
-    }
+  build = function() {
+    var CHK, REX, baditem, coffee, cofiles, compileFile, config, cotest, excludemap, file, filemap, filemap_all, files, findCoffeeFiles, findSrcDir, fs, item, mkdir, padString, path2edit, runTest, setEditor, src2lib, task, taskfiles, updir_count, _i, _len, _ref, _ref2, _results;
+    task = arguments[0], taskfiles = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
     coffee = require("./coffee").CoffeeScript;
-    REX = require("./comatch").CoRegex;
+    REX = require("./comatch").CoRegexFn;
     CHK = require("./cocheck").CoCheck;
     _ref = require("./convert"), src2lib = _ref.src2lib, padString = _ref.padString;
     _ref2 = require("./errorformat"), path2edit = _ref2.path2edit, setEditor = _ref2.setEditor;
     cotest = require("./cotest");
     config = {
-      editor: "Gedit",
+      editor: "Vim",
       logWrites: false,
       formatErrors: false
     };
@@ -103,7 +101,7 @@
       return mkdir_p(path.split("/"), 0);
     };
     compileFile = function(file) {
-      var cofile, jsfile, msg, pad, regex_match_linenumber;
+      var cofile, jsfile, pad;
       pad = padString(file.trgFile, 30);
       try {
         cofile = fs.readFileSync(file.srcFile, "UTF8");
@@ -117,10 +115,8 @@
           return console.log("" + (path2edit(file.trgFile)) + ":" + pad + " written.");
         }
       } catch (error) {
-        regex_match_linenumber = /line\s*\d*\:/;
         file.error = true;
-        msg = error.message;
-        return console.log("Error: " + error.message);
+        return console.error(error.stack);
       }
     };
     runTest = function(file) {
@@ -236,11 +232,11 @@
         return _results;
         break;
       case "test":
-        return runTest(buildfiles[0]);
+        return runTest(taskfiles[0]);
     }
   };
   test = function(cofile) {
-    return build("test", [cofile]);
+    return build("test", cofile);
   };
   buildAll = function() {
     return build("all");

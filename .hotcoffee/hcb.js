@@ -25,6 +25,6 @@
 		hcb = require("./lib/hotcoffee").HotCoffeeBrewer;
 	}
 
-	module.exports = hcb; 
+	module.exports = hcb;
 
 }).call(this)

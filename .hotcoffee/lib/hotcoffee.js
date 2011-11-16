@@ -83,8 +83,8 @@
     compile = require("./compile");
   } catch (error) {
     console.log("Error: could not load HotCoffeeBrewer compile module.");
-    console.log("I will try to compile it no.");
-    buildSelf();
+    console.log("will try to compile it now...");
+    buildSelf() && testSelf();
     console.log("HotCoffeeBrewer was rebuilt and loaded.");
   }
   module.exports.HotCoffeeBrewer = {
@@ -92,8 +92,7 @@
       return testSelf();
     },
     buildSelf: function() {
-      buildSelf();
-      return testSelf();
+      return buildSelf() && testSelf();
     },
     buildAll: function() {
       return compile.buildAll();
