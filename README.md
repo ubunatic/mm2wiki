@@ -12,8 +12,7 @@ Linux AND Windows using my [Hot Coffee Brewer](https://github.com/ubunatic/Hot-C
 coffee command line tool.
 
 - running mm2wiki requires:
-  - [node-xml2js](https://github.com/Leonidas-from-XIV/node-xml2js)
-  - [sax-js](https://github.com/isaacs/sax-js) (requred by node-xml2js)
+  - [sax-js](https://github.com/isaacs/sax-js)
 - building mm2wiki requires:
   - [CoffeeScript](http://jashkenas.github.com/coffee-script)
   - [Hot Coffee Brewer](https://github.com/ubunatic/Hot-Coffee-Brewer)
@@ -29,7 +28,6 @@ Project Contents
 		src/test.co                       # a short test case
 
 		lib/*.js                          # compiled js + dependencies
-		lib/xml2js.js                     # dep: creates nice js objs from xml
 		lib/sax.js                        # dep: xml parser
 
 		test.mm                           # freemind mindmap using many features
@@ -62,7 +60,7 @@ Installation
     # Test if sample files compile and test conversions runs through:
     node build.js
 
-If everythings runs fine, you can remove the files from `./src` and start to use `mm2wiki.js` directly.
+If everything runs fine, you can remove the files from `./src` and start to use `mm2wiki.js` directly.
 
 *Windows*: Make sure to add the `node.exe` to your system `PATH`.
 
@@ -73,9 +71,11 @@ Issues
 
 Roadmap
 -------
-* Issue 3: xml2js changes order of elements -> needs to be replaced
-* Issue 4: sax.js looks like a heavy dependency -> maybe use own custom Freemind parser (xml is not overly compex)
-* Issue 5: more command line args required for better control of conversion (usage of == vs ** depending on node depth)
+* Issue 3: sax.js looks like a heavy dependency -> maybe use own custom Freemind parser (xml is not overly complex)
+* Issue 4: more command line args required for better control of conversion (usage of == vs ** depending on node depth)
 
-
+History
+-------
+v0.1: inital commit
+v0.2: removed xml2js dependency
 
