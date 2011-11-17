@@ -3,10 +3,10 @@
 * level2
 ** level3
 ** level3 '''bold''' richtext
-** level3 ''italic'' text
+** level3 ''italic '' text
 ** [http://example.com level3 link]
 * <big><big>⚠</big></big> level2 with warning icon
-* <big>ⓘ</big> level2 '''richtext''' with bulp
+* <big>ⓘ</big> level2 '''richtext ''' with bulp
 * I am using [http://blog.kowalczyk.info/software/sumatrapdf/download-free-pdf-viewer.html SumatraPDF] as OSS alternative for the heavyweight Adobe Reader.
 ==level1 richtext==
 * image of midmap
@@ -19,11 +19,11 @@
 * [<small>linux</small>] linux icon
 * <big><big>⌚</big></big> clock icon
 ==level1 bold==
-==<big><big>☆</big></big> [<small>linux</small>] level1 icons==
+==<big><big>☆</big></big>[<small>linux</small>] level1 icons==
 ==content node==
-* . test iteration '''1'''
-* . test iteration '''2'''
-* . test iteration '''3'''
+* '''1'''. test iteration
+* '''2'''. test iteration
+* '''3'''. test iteration
 * '''funny links'''
 ** [http://google.de link simple]
 ** [file:///home/juve] link rich '''yeah!'''

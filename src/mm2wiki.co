@@ -1,5 +1,5 @@
-xml2js = require "./xml2js"
-# sax = require "./sax"
+sax = require "./sax"
+strict = true
 
 DEBUG = false
 
@@ -10,10 +10,102 @@ console =
 	log: (args...) -> global.console.log args... if DEBUG
 	error: (args...) -> global.console.error args... if DEBUG
 
-convert = (wikifile, cb) ->
-	parser = new xml2js.Parser()
-	parser.parseString wikifile, (err, result) ->
-		cb err, js2wiki(result)
+convert = (mmfile, cb) ->
+	parser = sax.parser strict
+		
+	
+	console.log "parsing wikifile: ", mmfile.length
+
+	result = ""
+
+	root = node = text: '', icons: "", nodes: [], parent: undefined
+	level = 0
+	href = undefined
+	minBoldDepth = 3
+
+	parser.onerror = (err) ->
+		cb err, result
+
+	parser.ontext = (t) ->
+		tt = t.replace(/[\n\r\t]*/g, "")
+		if href?
+			node.richtext += " #{link2wiki href, tt.trim()} "
+			href = undefined
+		else
+			node.richtext += tt
+
+	parser.onopentag = (tag) ->
+
+		# console.log "<", tag, ">" if tag.name == "a"
+		if tag.name == "map"                               # found root node
+			level = 0
+		if tag.name == "node"                              # found a mm new node
+			n = parent: node, nodes: [], icons: ""
+			level++
+			n.text = parseSimpleNode tag
+			node = n
+		if tag.name == "richcontent"
+			node.richcontent = true
+			node.richtext = ''
+		if tag.name == "b" or tag.name == "strong"
+			node.richtext += "'''" unless level < minBoldDepth
+		if tag.name == "i"
+			node.richtext += "''"
+		if tag.name == "a"
+			href = tag.attributes.href
+		if tag.name == "font"
+			if tag.attributes.BOLD? and level >= minBoldDepth
+				node.text = "'''#{node.text}'''"
+		if tag.name == "br"
+			node.richtext += " "
+		if tag.name == "icon"
+			node.icons += icon2wiki tag
+		if tag.name == "img"
+			node.text += img2wiki tag
+		
+		# cleanup
+		if node.richtext?.trim() == ""
+			node.richtext = node.richtext.trim()
+
+		if node.text?.trim() == ""
+			node.text = node.text.trim()
+
+	parser.onclosetag = (tag) ->
+		if tag == "node"
+			# console.log   "</", node, ">"
+			t = node.text
+			if node.richcontent
+				t += node.richtext
+			if node.icons != ""
+				t = node.icons + " " + t
+					
+			t = addDepthMarker t, level
+			node.result = t
+			node.parent.nodes.push node
+
+			node = node.parent
+			level--
+		if tag == "b" or tag == "strong"
+			node.richtext += "'''" unless level < minBoldDepth
+
+		if tag == "i"
+			node.richtext += "''"
+
+	parser.onend = ->
+		result = parseNodeTree root
+		console.log result
+	
+	parser.write(mmfile).close()
+
+	cb undefined, result
+
+	#TODO: break lines for deep nodes, or override with global linebreak config
+
+parseNodeTree = (root) ->
+	result = ''
+	for n in root.nodes
+		result += n.result + parseNodeTree n
+	result
 
 toList = (object) ->
 	if object?
@@ -21,25 +113,16 @@ toList = (object) ->
 		else [ object ]
 	else []
 
+parseSimpleNode = (node) ->
+	a = node.attributes
+	t = ''
+	if a.TEXT? then t = a.TEXT.trim()
+	if a.LINK? then t = link2wiki a.LINK, t
+	t
 
-js2wiki = (node, depth=0) ->
-	result = ""
-	nodes  = []
-	start  = ""
-	end    = "\n"
-	attr   = {}
-	final  = ""
-
-	bold         = false
-	minBoldDepth = 3
-	simpleText   = ""
-
-	minBreakDepth = 3
-
-	# break lines for deep nodes, or override with global linebreak config
-	linebreak = depth >= minBreakDepth && config.linebreak
-
-	# define node type based on node depth
+addDepthMarker = (text, depth) ->
+	end = "\n"
+	start = ""
 	switch depth
 		when 1 then start = "=";  end = "=\n"
 		when 2 then start = "==";   end = "==\n"
@@ -47,95 +130,18 @@ js2wiki = (node, depth=0) ->
 		when 4 then start = "** "
 		when 5 then start = "*** "
 		when 6 then start = "**** "
+	
+	start + cleanupSpaces(text) + end
 
-	# add prefix, ignore root node
-	result = start unless node["@"]?["version"]
+cleanupSpaces = (text) ->
+	text.replace(/[ ]+/g, ' ').trim()
 
-	# handle bold nodes
-	if node["font"]?["@"]?["BOLD"] is "true"
-		bold = true
+img2wiki = (img) ->
+	a = img.attributes
+	t = ""
+	if a.src? then t = "see image #{a.src} [[File:#{ a.src }|thumb]]"
+	t
 
-	# add all icons first, before adding any text
-	if node["icon"]
-		if node["icon"].length? then result += "#{icon2wiki icon} " for icon in node["icon"]
-		else result += "#{icon2wiki node["icon"]} "
-
-	# add link attr as wiki link before the text
-	if attr = node["@"]
-		if attr.TEXT                                           #handle simple texts/links
-			if bold and depth >= minBoldDepth                  #add boldness
-				result += "'''"; end = "'''" + end
-
-			if attr.LINK                                       #add link with text
-				result += link2wiki(attr.LINK, attr.TEXT) + end
-			else                                               #add simple text without link
-				result += attr.TEXT + end
-		else
-			if attr.LINK                                       #add link before any richtext
-				result += link2wiki( attr.LINK ) + " "
-			final = end                                        #postpone closing text
-
-
-	# process richcontent nodes and add resulting text
-	result += rich2wiki(node["richcontent"], linebreak).trim() + final if node["richcontent"]?
-
-	# process child/"node" nodes
-	result += js2wiki n, depth+1 for n in toList node["node"]
-
-	return result
-
-rich2wiki = (node, linebreak=false) ->
-	result = ""
-	splitter = if linebreak then " <br>" else " "
-
-	o = (testObj, start, func, end="") ->
-		result += start + func(testObj) + end   if testObj? and func?
-		result += testObj + (start ? "") + end  if typeof testObj is 'string' and not func?
-
-    # <-- leading whitespace test
-	# traling whitespace test -->	
-	if typeof node is 'string'
-		result = node
-	else if typeof node is 'object' and not node.length?
-		# check for properties and parse them
-		console.log "found: object"
-
-		# special case html,p: linebreak must be passed for "<br>" insertion
-		# WARN: <p> may not break in other tags than <p> and <body>!
-		#       the first set of <p> in the <body> will break
-		#       <p> in those body-<p> will also break
-		result += rich2wiki node.html.body, linebreak if node.html?
-		result += rich2wiki node.p, linebreak if node.p?
-
-		# special case links: ["#"] text must be wrapped with link syntax
-		if node["@"]?["href"]?
-			result += link2wiki node["@"]["href"], node["#"]
-		else
-			o node["#"], " "
-
-		if node["@"]?["src"]?
-			result += "see image #{ node["@"]["src"] } "
-			result += "[[File:#{ node["@"]["src"] }|thumb]]"
-
-		# other cases: call rich2wiki on subnode
-		# and handle node specifics (boldness, etc.)
-		o node.a,       "",	       rich2wiki
-		o node.img,     "",	       rich2wiki
-		o node.small,   "",        rich2wiki
-		o node.span,    "",        rich2wiki
-		o node.strong,  "",        rich2wiki
-		o node.b,       "'''",     rich2wiki, "'''"
-		o node.i,       "''",      rich2wiki, "''"
-		o node.br,      " <br>"
-
-	else if node.length > 0
-		console.log "found: array(#{node.length}), linebreak=#{linebreak}"
-		result += (rich2wiki e for e in node).join splitter
-
-	else console.log "found nothing!"
-
-	console.log node
-	return result
 
 # matches for local/file/freemind/url link detection
 match_http = /^\s*[hf][t]?tp[s]?/
@@ -168,8 +174,9 @@ link2wiki = (link, text) ->
 	return result
 
 icon2wiki = (icon) ->
-	"" unless icon["@"]?["BUILTIN"]? # handle internal only icons or return empty string
-	name = icon["@"]["BUILTIN"]
+	a = icon.attributes
+	"" unless a.BUILTIN? # handle internal only icons or return empty string
+	name = a.BUILTIN
 	result = ""
 
 	# helper func to make the mapping code look nice
